@@ -1,234 +1,119 @@
-# Azure-AI-Foundry
-Developing AI agent with Azure AI Foundry Agent service using Python SDK.
+# Azure-AI-Foundry — Build an AI Agent with Azure AI Agent Service
 
-Develop an AI agent
-In this exercise, you'll use Azure AI Agent Service to create a simple agent that analyzes data and creates charts. The agent can use the built-in Code Interpreter tool to dynamically generate any code required to analyze data.
+A hands-on demonstration showcasing expertise in Azure AI Foundry, Azure AI Agent Service, and Python-driven AI tooling.
+This exercise guides users through developing a simple yet powerful AI agent capable of analyzing data and generating charts using the built-in Code Interpreter tool.
 
-Tip: The code used in this exercise is based on the for Azure AI Foundry SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to Azure AI Foundry SDK client libraries for details.
+📘 Overview
 
-This exercise should take approximately 30 minutes to complete.
-
-Note: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
+In this exercise, you will:
 
 Create an Azure AI Foundry project
-Let's start by creating an Azure AI Foundry project.
 
-In a web browser, open the Azure AI Foundry portal at https://ai.azure.com and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Azure AI Foundry logo at the top left to navigate to the home page, which looks similar to the following image (close the Help pane if it's open):
+Use the Azure AI Agent Service SDK (Python)
 
-Screenshot of Azure AI Foundry portal.
+Build an AI Agent that can analyze uploaded data
 
-In the home page, select Create an agent.
+Use the Code Interpreter tool to dynamically generate Python code
 
-When prompted to create a project, enter a valid name for your project and expand Advanced options.
+Run statistical calculations and produce text-based charts
 
-Confirm the following settings for your project:
+Interact with the agent via a stateful thread-based conversation loop
 
-Azure AI Foundry resource: A valid name for your Azure AI Foundry resource
-Subscription: Your Azure subscription
-Resource group: Create or select a resource group
-Region: Select any AI Foundry recommended*
-* Some Azure AI resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there's a possibility you may need to create another resource in a different region.
+🚀 Key Features
 
-Select Create and wait for your project to be created.
+🔹 Azure AI Agent creation with GPT-4o
 
-If prompted, deploy a gpt-4o model using either the Global Standard or Standard deployment option (depending on your quota availability).
+🔹 Automatic data file upload & handling
 
-Note: If quota is available, a GPT-4o base model may be deployed automatically when creating your Agent and project.
+🔹 Dynamic Python execution for analytics
 
-When your project is created, the Agents playground will be opened.
+🔹 Conversation-thread memory support
 
-In the navigation pane on the left, select Overview to see the main page for your project; which looks like this:
+🔹 CLI-based interactive agent client
 
-Screenshot of a Azure AI Foundry project overview page.
+🔹 Full project cleanup instructions included
 
-Copy the Azure AI Foundry project endpoint values to a notepad, as you'll use them to connect to your project in a client application.
+🏗️ Project Structure
+Azure-AI-Foundry/
+│
+└── Python/
+    ├── agent.py               # Main agent application
+    ├── data.txt               # Sample dataset
+    ├── .env                   # Local environment config
+    ├── requirements.txt       # Dependencies
 
-Create an agent client app
-Now you're ready to create a client app that uses an agent. Some code has been provided for you in a GitHub repository.
-
-Clone the repo containing the application code
-Open a new browser tab (keeping the Azure AI Foundry portal open in the existing tab). Then in the new tab, browse to the Azure portal at https://portal.azure.com; signing in with your Azure credentials if prompted.
-
-Close any welcome notifications to see the Azure portal home page.
-
-Use the [>_] button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a PowerShell environment with no storage in your subscription.
-
-The cloud shell provides a command-line interface in a pane at the bottom of the Azure portal. You can resize or maximize this pane to make it easier to work in.
-
-Note: If you have previously created a cloud shell that uses a Bash environment, switch it to PowerShell.
-
-In the cloud shell toolbar, in the Settings menu, select Go to Classic version (this is required to use the code editor).
-
-Ensure you've switched to the classic version of the cloud shell before continuing.
-
-In the cloud shell pane, enter the following commands to clone the GitHub repo containing the code files for this exercise (type the command, or copy it to the clipboard and then right-click in the command line and paste as plain text):
-
+📦 Installation & Setup
+1. Clone Repository in Azure Cloud Shell
 rm -r ai-agents -f
 git clone https://github.com/MicrosoftLearning/mslearn-ai-agents ai-agents
-Tip: As you enter commands into the cloudshell, the output may take up a large amount of the screen buffer and the cursor on the current line may be obscured. You can clear the screen by entering the cls command to make it easier to focus on each task.
 
-Enter the following command to change the working directory to the folder containing the code files and list them all.
-
+2. Navigate to the Lab Directory
 cd ai-agents/Labfiles/02-build-ai-agent/Python
 ls -a -l
-The provided files include application code, configuration settings, and data.
 
-Configure the application settings
-In the cloud shell command-line pane, enter the following command to install the libraries you'll use:
-
+3. Create Virtual Environment & Install Dependencies
 python -m venv labenv
 ./labenv/bin/Activate.ps1
 pip install -r requirements.txt azure-ai-projects azure-ai-agents
-Enter the following command to edit the configuration file that has been provided:
 
-code .env
-The file is opened in a code editor.
+4. Configure Environment
 
-In the code file, replace the your_project_endpoint placeholder with the endpoint for your project (copied from the project Overview page in the Azure AI Foundry portal) and ensure that the MODEL_DEPLOYMENT_NAME variable is set to your model deployment name (which should be gpt-4o).
+Edit .env:
 
-After you've replaced the placeholder, use the CTRL+S command to save your changes and then use the CTRL+Q command to close the code editor while keeping the cloud shell command line open.
+Set your_project_endpoint
 
-Write code for an agent app
-Tip: As you add code, be sure to maintain the correct indentation. Use the comment indentation levels as a guide.
+Set MODEL_DEPLOYMENT_NAME=gpt-4o
 
-Enter the following command to edit the code file that has been provided:
 
-code agent.py
-Review the existing code, which retrieves the application configuration settings and loads data from data.txt to be analyzed. The rest of the file includes comments where you'll add the necessary code to implement your data analysis agent.
+🧠 Building the AI Agent
 
-Find the comment Add references and add the following code to import the classes you'll need to build an Azure AI agent that uses the built-in code interpreter tool:
+The workflow includes:
 
-# Add references
-from azure.identity import DefaultAzureCredential
-from azure.ai.agents import AgentsClient
-from azure.ai.agents.models import FilePurpose, CodeInterpreterTool, ListSortOrder, MessageRole
-Find the comment Connect to the Agent client and add the following code to connect to the Azure AI project.
+Connecting to Azure AI Foundry using the SDK
 
-Tip: Be careful to maintain the correct indentation level.
+Uploading data.txt
 
-# Connect to the Agent client
-agent_client = AgentsClient(
-   endpoint=project_endpoint,
-   credential=DefaultAzureCredential
-       (exclude_environment_credential=True,
-        exclude_managed_identity_credential=True)
-)
-with agent_client:
-The code connects to the Azure AI Foundry project using the current Azure credentials. The final with agent_client statement starts a code block that defines the scope of the client, ensuring it's cleaned up when the code within the block is finished.
+Creating a CodeInterpreterTool
 
-Find the comment Upload the data file and create a CodeInterpreterTool, within the with agent_client block, and add the following code to upload the data file to the project and create a CodeInterpreterTool that can access the data in it:
+Initializing an AI agent with statistical analysis instructions
 
-# Upload the data file and create a CodeInterpreterTool
-file = agent_client.files.upload_and_poll(
-    file_path=file_path, purpose=FilePurpose.AGENTS
-)
-print(f"Uploaded {file.filename}")
+Creating a thread for interactive chat
 
-code_interpreter = CodeInterpreterTool(file_ids=[file.id])
-Find the comment Define an agent that uses the CodeInterpreterTool and add the following code to define an AI agent that analyzes data and can use the code interpreter tool you defined previously:
+Running prompts & viewing responses
 
-# Define an agent that uses the CodeInterpreterTool
-agent = agent_client.create_agent(
-    model=model_deployment,
-    name="data-agent",
-    instructions="You are an AI agent that analyzes the data in the file that has been uploaded. Use Python to calculate statistical metrics as necessary.",
-    tools=code_interpreter.definitions,
-    tool_resources=code_interpreter.resources,
-)
-print(f"Using agent: {agent.name}")
-Find the comment Create a thread for the conversation and add the following code to start a thread on which the chat session with the agent will run:
+Cleaning up the agent and thread
 
-# Create a thread for the conversation
-thread = agent_client.threads.create()
-Note that the next section of code sets up a loop for a user to enter a prompt, ending when the user enters "quit".
+Code snippets include imports, authentication, data upload, agent creation, prompt execution, error handling, message retrieval, and cleanup logic.
 
-Find the comment Send a prompt to the agent and add the following code to add a user message to the prompt (along with the data from the file that was loaded previously), and then run thread with the agent.
-
-# Send a prompt to the agent
-message = agent_client.messages.create(
-    thread_id=thread.id,
-    role="user",
-    content=user_prompt,
-)
-
-run = agent_client.runs.create_and_process(thread_id=thread.id, agent_id=agent.id)
-Find the comment Check the run status for failures and add the following code to check for any errors.
-
-# Check the run status for failures
-if run.status == "failed":
-    print(f"Run failed: {run.last_error}")
-Find the comment Show the latest response from the agent and add the following code to retrieve the messages from the completed thread and display the last one that was sent by the agent.
-
-# Show the latest response from the agent
-last_msg = agent_client.messages.get_last_message_text_by_role(
-   thread_id=thread.id,
-   role=MessageRole.AGENT,
-)
-if last_msg:
-   print(f"Last Message: {last_msg.text.value}")
-Find the comment Get the conversation history, which is after the loop ends, and add the following code to print out the messages from the conversation thread; reversing the order to show them in chronological sequence
-
-# Get the conversation history
-print("\nConversation Log:\n")
-messages = agent_client.messages.list(thread_id=thread.id, order=ListSortOrder.ASCENDING)
-for message in messages:
-   if message.text_messages:
-       last_msg = message.text_messages[-1]
-       print(f"{message.role}: {last_msg.text.value}\n")
-Find the comment Clean up and add the following code to delete the agent and thread when no longer needed.
-
-# Clean up
-agent_client.delete_agent(agent.id)
-Review the code, using the comments to understand how it:
-
-Connects to the AI Foundry project.
-Uploads the data file and creates a code interpreter tool that can access it.
-Creates a new agent that uses the code interpreter tool and has explicit instructions to use Python as necessary for statistical analysis.
-Runs a thread with a prompt message from the user along with the data to be analyzed.
-Checks the status of the run in case there's a failure
-Retrieves the messages from the completed thread and displays the last one sent by the agent.
-Displays the conversation history
-Deletes the agent and thread when they're no longer required.
-Save the code file (CTRL+S) when you have finished. You can also close the code editor (CTRL+Q); though you may want to keep it open in case you need to make any edits to the code you added. In either case, keep the cloud shell command-line pane open.
-
-Sign into Azure and run the app
-In the cloud shell command-line pane, enter the following command to sign into Azure.
-
+▶️ Running the App
+1. Sign in to Azure
 az login
-You must sign into Azure - even though the cloud shell session is already authenticated.
 
-Note: In most scenarios, just using az login will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the --tenant parameter. See Sign into Azure interactively using the Azure CLI for details.
-
-When prompted, follow the instructions to open the sign-in page in a new tab and enter the authentication code provided and your Azure credentials. Then complete the sign in process in the command line, selecting the subscription containing your Azure AI Foundry hub if prompted.
-
-After you have signed in, enter the following command to run the application:
-
+2. Run the Application
 python agent.py
-The application runs using the credentials for your authenticated Azure session to connect to your project and create and run the agent.
 
-When prompted, view the data that the app has loaded from the data.txt text file. Then enter a prompt such as:
-
+Example prompts:
 What's the category with the highest cost?
-Tip: If the app fails because the rate limit is exceeded. Wait a few seconds and try again. If there is insufficient quota available in your subscription, the model may not be able to respond.
-
-View the response. Then enter another prompt, this time requesting a visualization:
-
 Create a text-based bar chart showing cost by category
-View the response. Then enter another prompt, this time requesting a statistical metric:
-
 What's the standard deviation of cost?
-View the response.
 
-You can continue the conversation if you like. The thread is stateful, so it retains the conversation history - meaning that the agent has the full context for each response. Enter quit when you're done.
 
-Review the conversation messages that were retrieved from the thread - which may include messages the agent generated to explain its steps when using the code interpreter tool.
+Enter quit to exit the app.
+Afterward, the script outputs the full conversation history.
 
-Summary
-In this exercise, you used the Azure AI Agent Service SDK to create a client application that uses an AI agent. The agent can use the built-in Code Interpreter tool to run dynamic Python code to perform statistical analyses.
+🧹 Cleanup Instructions
 
-Clean up
-If you've finished exploring Azure AI Agent Service, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
+To avoid unnecessary Azure costs:
 
-Return to the browser tab containing the Azure portal (or re-open the Azure portal at https://portal.azure.com in a new browser tab) and view the contents of the resource group where you deployed the resources used in this exercise.
-On the toolbar, select Delete resource group.
-Enter the resource group name and confirm that you want to delete it.
+Open the Azure Portal
+
+Locate the resource group used in this exercise
+
+Select Delete resource group
+
+Confirm deletion
+
+🤝 Contributing
+
+This repository is for demonstration and learning purposes.
+Feel free to fork, adapt, or incorporate into your own Azure AI projects.
